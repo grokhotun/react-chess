@@ -11,6 +11,13 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
+  },
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
@@ -43,7 +50,19 @@
     "import/order": [
       "error",
       {
-        "newlines-between": "always"
+        "groups": [["external", "builtin"], "internal", ["parent", "sibling", "index"]],
+        "pathGroups": [
+          {
+            "pattern": "components/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "theme",
+            "group": "internal"
+          }
+        ],
+        "newlines-between": "always",
+        "pathGroupsExcludedImportTypes": ["builtin"]
       }
     ]
   }
