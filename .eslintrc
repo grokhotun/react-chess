@@ -53,7 +53,15 @@
         "groups": [["external", "builtin"], "internal", ["parent", "sibling", "index"]],
         "pathGroups": [
           {
+            "pattern": "models/**",
+            "group": "external"
+          },
+          {
             "pattern": "components/**",
+            "group": "internal"
+          },
+          {
+            "pattern": "assets/**",
             "group": "internal"
           },
           {

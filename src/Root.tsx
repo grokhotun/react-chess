@@ -1,7 +1,7 @@
 import React from 'react';
 import { ThemeProvider } from 'styled-components';
 
-import { ChessBoard } from 'components/ChessBoard';
+import { ChessBoard } from 'components';
 
 import { theme, GlobalStyle } from './theme';
 
