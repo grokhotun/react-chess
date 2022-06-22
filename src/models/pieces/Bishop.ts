@@ -19,7 +19,8 @@ export class Bishop extends Piece {
     this.image = imageMap[color];
   }
 
-  canMove(): boolean {
+  canMove(target: Cell) {
+    if (!super.canMove(target)) return false;
     return true;
   }
 

@@ -19,11 +19,11 @@ export class King extends Piece {
     this.image = imageMap[color];
   }
 
-  canMove(): boolean {
-    return true;
+  canMove() {
+    return false;
   }
 
-  move(): void {
+  move() {
     console.log('Moving');
   }
 }

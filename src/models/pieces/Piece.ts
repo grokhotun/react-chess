@@ -1,5 +1,5 @@
 import { Cell } from 'models/Cell';
-import { Colors } from 'models/types';
+import { Colors, Pieces } from 'models/types';
 
 export abstract class Piece {
   color: Colors;
@@ -13,6 +13,16 @@ export abstract class Piece {
     this.cell.piece = this;
   }
 
-  abstract canMove(): boolean;
-  abstract move(): void;
+  canMove(target: Cell) {
+    if (
+      [
+        target.piece?.color === this.color,
+        target.piece?.name === Pieces.KING,
+      ].some(Boolean)
+    )
+      return false;
+
+    return true;
+  }
+  abstract move(target: Cell): void;
 }

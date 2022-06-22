@@ -19,8 +19,10 @@ export class Queen extends Piece {
     this.image = imageMap[color];
   }
 
-  canMove(): boolean {
-    return true;
+  canMove(target: Cell) {
+    if (!super.canMove(target)) return false;
+    if (this.cell.isVerticalEmpty(target)) return true;
+    return false;
   }
 
   move(): void {

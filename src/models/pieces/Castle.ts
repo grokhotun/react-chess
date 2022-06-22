@@ -19,8 +19,8 @@ export class Castle extends Piece {
     this.image = imageMap[color];
   }
 
-  canMove(): boolean {
-    return true;
+  canMove() {
+    return false;
   }
 
   move(): void {

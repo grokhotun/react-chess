@@ -27,7 +27,7 @@ export class Board {
     });
   }
 
-  private getCell(x: number, y: number) {
+  getCell(x: number, y: number) {
     return this.cells[y][x];
   }
 
@@ -67,6 +67,21 @@ export class Board {
     new Castle(Colors.WHITE, this.getCell(7, 0));
     new Castle(Colors.BLACK, this.getCell(0, 7));
     new Castle(Colors.BLACK, this.getCell(7, 7));
+  }
+
+  public copyBoard() {
+    const board = new Board();
+    board.cells = this.cells;
+
+    return board;
+  }
+
+  public showMoves(selectedCell: Cell) {
+    this.cells.forEach((row) => {
+      row.forEach((cell) => {
+        cell.empty = Boolean(selectedCell.piece?.canMove(cell));
+      });
+    });
   }
 
   public setup() {
