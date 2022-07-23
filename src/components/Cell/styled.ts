@@ -8,17 +8,24 @@ const colorsMap = {
   white: theme.colors.whiteCell,
 };
 
-export const Cell = styled.div<{
+type CellProps = {
   $selected?: boolean;
+  $enemy?: boolean;
   $color: Colors;
-}>`
+};
+
+export const Cell = styled.div<CellProps>`
+  user-select: none;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${({ $selected, $color, theme }) =>
-    $selected ? theme.colors.selectedCell : colorsMap[$color]};
+  background-color: ${({ $selected, $enemy, $color, theme }) => {
+    if ($enemy) return theme.colors.targetCell;
+    if ($selected) return theme.colors.selectedCell;
+    return colorsMap[$color];
+  }};
 `;
 
 export const TargetPoint = styled.div`

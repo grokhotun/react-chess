@@ -1,6 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Board } from 'models/Board';
 import { Cell as CellModel } from 'models/Cell';
+import { Typography } from 'antd';
+import { useClickAway } from 'react-use';
 
 import { Row, Cell } from 'components';
 
@@ -9,6 +11,11 @@ import { Wrapper, Container } from './styled';
 export const ChessBoard = () => {
   const [board, setBoard] = useState(new Board());
   const [selectedCell, setSelectedCell] = useState<CellModel | null>(null);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useClickAway(ref, () => {
+    setSelectedCell(null);
+  });
 
   const start = useCallback(() => {
     const boardInstance = new Board();
@@ -17,8 +24,18 @@ export const ChessBoard = () => {
     setBoard(boardInstance);
   }, []);
 
+  const updateBoard = useCallback(() => {
+    const newBoard = board.copyBoard();
+    setBoard(newBoard);
+  }, [board]);
+
   const handleClick = useCallback(
     (cell: CellModel) => {
+      if (selectedCell === cell) {
+        setSelectedCell(null);
+        return;
+      }
+
       if (
         selectedCell &&
         selectedCell !== cell &&
@@ -42,8 +59,8 @@ export const ChessBoard = () => {
   const showMoves = useCallback(() => {
     if (!selectedCell) return;
     board.showMoves(selectedCell);
-    setBoard(board.copyBoard());
-  }, [board, selectedCell]);
+    updateBoard();
+  }, [board, selectedCell, updateBoard]);
 
   useEffect(() => {
     showMoves();
@@ -57,8 +74,8 @@ export const ChessBoard = () => {
 
   return (
     <Container>
-      <h1>React Chess</h1>
-      <Wrapper>
+      <Typography.Title level={1}>React Chess</Typography.Title>
+      <Wrapper ref={ref}>
         {board.cells.map((row, rowIndex) => (
           <Row key={rowIndex}>
             {row.map((cell, cellIndex) => (

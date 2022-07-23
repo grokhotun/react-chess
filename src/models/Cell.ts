@@ -7,7 +7,7 @@ export class Cell {
   readonly y: number;
   readonly colors: Colors;
   board: Board;
-  empty = true;
+  empty = false;
   piece?: Piece;
 
   constructor(
@@ -41,11 +41,29 @@ export class Cell {
     return true;
   }
 
+  isHorizontalEmpty(target: Cell) {
+    if (this.y !== target.y) return false;
+
+    const min = Math.min(this.x, target.x);
+    const max = Math.max(this.x, target.x);
+
+    for (let x = min + 1; x < max; x++) {
+      if (!this.board.getCell(x, this.y).isEmpty()) return false;
+    }
+
+    return true;
+  }
+
+  setPiece(piece: Piece) {
+    this.piece = piece;
+    this.piece.cell = this;
+  }
+
   move(target: Cell) {
     if (!this.piece?.canMove(target)) return;
 
     this.piece.move(target);
-    target.piece = this.piece;
+    target.setPiece(this.piece);
     this.piece = undefined;
   }
 }

@@ -2,6 +2,7 @@ import { Cell as CellType } from 'models/Cell';
 import React, { useCallback } from 'react';
 
 import { Cell as StyledCell, TargetPoint } from './styled';
+import { Piece } from './Piece';
 
 type CellProps = {
   selected?: boolean;
@@ -15,15 +16,21 @@ export const Cell: React.FC<CellProps> = ({ cell, selected, onClick }) => {
   const color = cell.colors;
   const showTarget = cell.empty && !cell.piece;
   const hasPiece = !!cell.piece;
+  const isEnemy = Boolean(!selected && cell.empty && cell.piece);
 
   const handleClick = useCallback(() => {
     onClick(cell);
   }, [cell, onClick]);
 
   return (
-    <StyledCell onClick={handleClick} $selected={selected} $color={color}>
+    <StyledCell
+      onClick={handleClick}
+      $selected={selected}
+      $enemy={isEnemy}
+      $color={color}
+    >
       {showTarget && <TargetPoint />}
-      {hasPiece && <img src={src} title={name} alt={name} />}
+      {hasPiece && <Piece src={src} name={name} />}
     </StyledCell>
   );
 };

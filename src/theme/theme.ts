@@ -6,5 +6,6 @@ export const theme: DefaultTheme = {
     blackCell: '#b7c0d8',
     selectedCell: '#7B61FF',
     targetPoint: '#7b61ff',
+    targetCell: '#d45252',
   },
 };

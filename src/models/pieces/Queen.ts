@@ -21,7 +21,11 @@ export class Queen extends Piece {
 
   canMove(target: Cell) {
     if (!super.canMove(target)) return false;
-    if (this.cell.isVerticalEmpty(target)) return true;
+    if (
+      this.cell.isVerticalEmpty(target) ||
+      this.cell.isHorizontalEmpty(target)
+    )
+      return true;
     return false;
   }
 

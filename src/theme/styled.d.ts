@@ -7,6 +7,7 @@ declare module 'styled-components' {
       blackCell: string;
       selectedCell: string;
       targetPoint: string;
+      targetCell: string;
     };
   }
 }

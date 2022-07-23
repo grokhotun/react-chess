@@ -78,8 +78,8 @@ export class Board {
 
   public showMoves(selectedCell: Cell) {
     this.cells.forEach((row) => {
-      row.forEach((cell) => {
-        cell.empty = Boolean(selectedCell.piece?.canMove(cell));
+      row.forEach((target) => {
+        target.empty = Boolean(selectedCell.piece?.canMove(target));
       });
     });
   }

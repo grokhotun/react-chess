@@ -4,7 +4,7 @@ import { Colors, Pieces } from 'models/types';
 export abstract class Piece {
   color: Colors;
   cell: Cell;
-  abstract name: string;
+  abstract name: Pieces;
   abstract image: string;
 
   constructor(color: Colors, cell: Cell) {

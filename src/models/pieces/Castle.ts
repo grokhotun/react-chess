@@ -19,7 +19,16 @@ export class Castle extends Piece {
     this.image = imageMap[color];
   }
 
-  canMove() {
+  canMove(target: Cell) {
+    if (!super.canMove(target)) return false;
+    if (
+      [
+        this.cell.isVerticalEmpty(target),
+        this.cell.isHorizontalEmpty(target),
+      ].some(Boolean)
+    )
+      return true;
+
     return false;
   }
 
